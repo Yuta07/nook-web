@@ -30,7 +30,7 @@ export const PALETTE: Palette = {
     PRIMARY: '#34495e',
     SECONDARY: '#f5f6fa',
     GRAY: '#7f8fa6',
-    BACKGROUND: '#fefefe',
+    BACKGROUND: '#ffffff',
     PLACE_HOLDER: 'rgba(69, 69, 69, 0.5)',
     BORDER: '#c2c2c2',
     MAIN: '#fbc531',

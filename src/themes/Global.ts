@@ -14,7 +14,8 @@ export const GlobalStyle = createGlobalStyle`
     min-height: 100vh;
     font-size: 16px;
     font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Arial, Helvetica Neue,Segoe UI,Hiragino Kaku Gothic ProN,Hiragino Sans,ヒラギノ角ゴ ProN W3,Arial,メイリオ,Meiryo,sans-serif;
-    color: #2f3640;
+    color: #34495e;
+    background-color: #ffffff;
   }
 
   a {
