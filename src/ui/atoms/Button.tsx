@@ -69,6 +69,7 @@ export const Base = styled.button<{
       justify-content: center;
       white-space: nowrap;
       cursor: pointer;
+      vertical-align: text-bottom;
 
       &:hover {
         opacity: 0.8;

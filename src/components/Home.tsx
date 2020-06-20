@@ -1,9 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import HomeImg from '../assets/home-img.svg';
 import { Button } from '../ui/atoms/Button';
+import { Modal } from '../ui/organisms/Modal/Modal';
+import { SignupForm } from '../ui/organisms/SignupForm';
 
 export const Home = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const isOpenModal = () => {
+    setIsOpen(true);
+  };
+
+  const onCloseModal = () => {
+    setIsOpen(false);
+  };
+
   return (
     <Main>
       <Hero>
@@ -15,9 +27,10 @@ export const Home = () => {
         Leave it in nook of your head.
       </Description>
       <SignupContainer>
-        <Button width="120px" height="40px" background="SUCCESS">
-          Sign up free
+        <Button width="100px" height="40px" background="SUCCESS" handleClick={isOpenModal}>
+          はじめる
         </Button>
+        <Modal isOpen={isOpen} content={<SignupForm />} onCloseModal={onCloseModal} />
       </SignupContainer>
       <Image src={HomeImg} alt="home-image" />
     </Main>

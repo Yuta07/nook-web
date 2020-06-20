@@ -1,11 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import nookLogo from '../../assets/nook-main-logo.svg';
 import { Button } from '../atoms/Button';
 import { Logo } from '../atoms/Logo';
+import { LoginForm } from './LoginForm';
+import { Modal } from './Modal/Modal';
 
 export const Header = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const isOpenModal = () => {
+    setIsOpen(true);
+  };
+
+  const onCloseModal = () => {
+    setIsOpen(false);
+  };
+
   return (
     <Head>
       <Nav>
@@ -15,9 +27,10 @@ export const Header = () => {
           </Link>
         </Left>
         <Right>
-          <Button width="80px" height="32px">
-            Log in
+          <Button width="100px" height="36px" handleClick={isOpenModal}>
+            ログイン
           </Button>
+          <Modal isOpen={isOpen} content={<LoginForm />} onCloseModal={onCloseModal} />
         </Right>
       </Nav>
     </Head>
