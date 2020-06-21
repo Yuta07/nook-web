@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { Button } from '../atoms/Button';
 import { Input } from '../atoms/Input';
 import { Label } from '../atoms/Label';
+import store from '../../reducers';
+import { SIGNUP_START, User } from '../../types/auth';
 
 export const SignupForm = () => {
   const [name, setName] = useState<string>('');
@@ -24,7 +26,13 @@ export const SignupForm = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    console.log(name, password);
+    const user: User = {
+      name: name,
+      password: password,
+    };
+    console.log(user);
+
+    store.dispatch({ type: SIGNUP_START, payload: user });
   };
 
   return (

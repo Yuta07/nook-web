@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { Button } from '../atoms/Button';
 import { Input } from '../atoms/Input';
 import { Label } from '../atoms/Label';
+import store from '../../reducers';
+import { LOGIN_START, User } from '../../types/auth';
 
 export const LoginForm = () => {
   const [name, setName] = useState<string>('');
@@ -24,7 +26,13 @@ export const LoginForm = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    console.log(name, password);
+    const user: User = {
+      name: name,
+      password: password,
+    };
+    console.log(user);
+
+    store.dispatch({ type: LOGIN_START, payload: user });
   };
 
   return (
@@ -57,7 +65,7 @@ export const LoginForm = () => {
         </Row>
         <ButtonRow>
           <Button type="submit" width="100%">
-            新規登録
+            ログイン
           </Button>
         </ButtonRow>
       </Login>

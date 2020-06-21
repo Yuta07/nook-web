@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import HomeImg from '../assets/home-img.svg';
+import { Title } from '../hooks/useHelmet';
 import { Button } from '../ui/atoms/Button';
 import { Modal } from '../ui/organisms/Modal/Modal';
 import { SignupForm } from '../ui/organisms/SignupForm';
@@ -17,23 +18,26 @@ export const Home = () => {
   };
 
   return (
-    <Main>
-      <Hero>
-        Arrange your idea, <br />
-        task and document.
-      </Hero>
-      <Description>
-        The Service is for private management. <br />
-        Leave it in nook of your head.
-      </Description>
-      <SignupContainer>
-        <Button width="100px" height="40px" background="SUCCESS" handleClick={isOpenModal}>
-          はじめる
-        </Button>
-        <Modal isOpen={isOpen} content={<SignupForm />} onCloseModal={onCloseModal} />
-      </SignupContainer>
-      <Image src={HomeImg} alt="home-image" />
-    </Main>
+    <>
+      <Title title="ホーム" />
+      <Main>
+        <Hero>
+          Arrange your idea, <br />
+          task and document.
+        </Hero>
+        <Description>
+          The Service is for private management. <br />
+          Leave it in nook of your head.
+        </Description>
+        <SignupContainer>
+          <Button width="100px" height="40px" background="SUCCESS" handleClick={isOpenModal}>
+            はじめる
+          </Button>
+          <Modal isOpen={isOpen} content={<SignupForm />} onCloseModal={onCloseModal} />
+        </SignupContainer>
+        <Image src={HomeImg} alt="home-image" />
+      </Main>
+    </>
   );
 };
 
