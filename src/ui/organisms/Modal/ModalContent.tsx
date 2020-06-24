@@ -69,6 +69,7 @@ const Close = styled.div`
   position: absolute;
   top: 22px;
   right: 20px;
+  z-index: 152;
   display: flex;
   cursor: pointer;
 `;

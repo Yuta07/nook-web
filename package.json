@@ -5,6 +5,9 @@
   "author": "Yutaka Miyazaki<yutazon.me@gmail.com>",
   "private": true,
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.29",
+    "@fortawesome/free-solid-svg-icons": "^5.13.1",
+    "@fortawesome/react-fontawesome": "^0.1.11",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -12,6 +15,7 @@
     "@types/react-dom": "^16.9.0",
     "axios": "^0.19.2",
     "chart.js": "^2.9.3",
+    "connected-react-router": "^6.8.0",
     "history": "^5.0.0",
     "lodash": "^4.17.15",
     "react": "^16.13.1",

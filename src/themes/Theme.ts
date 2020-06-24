@@ -1,13 +1,13 @@
 import { Palette, PALETTE } from './Palette';
 import { MediaQuery, DeviceSize, MEDIA_QUERY, DEVICE_SIZE } from './Size';
 
-export interface Theme {
-  theme: 'light' | 'dark';
+export type Theme = {
+  theme?: 'light' | 'dark';
   palette?: Palette;
   media?: MediaQuery;
   device?: DeviceSize;
   setTheme: () => void;
-}
+};
 
 export const theme = (): Theme => {
   const appTheme: Theme = {

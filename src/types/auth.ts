@@ -21,41 +21,41 @@ export const LOGIN_START = 'LOGIN_START';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 export const LOGOUT = 'LOGOUT';
 
-interface InitialAuthCheck {
+type InitialAuthCheck = {
   type: typeof AUTH_CHECK;
-}
+};
 
-interface AuthProcessingFinish {
+type AuthProcessingFinish = {
   type: typeof AUTH_PROCESSING_FINISH;
-}
+};
 
-interface AuthSuccess {
+type AuthSuccess = {
   type: typeof AUTH_SUCCESS;
-}
+};
 
-interface SignupStart {
+type SignupStart = {
   type: typeof SIGNUP_START;
   payload: User;
-}
+};
 
-interface SignupFailure {
+type SignupFailure = {
   type: typeof SIGNUP_FAILURE;
   payload: AuthState['signupError'];
-}
+};
 
-interface LoginStart {
+type LoginStart = {
   type: typeof LOGIN_START;
   payload: User;
-}
+};
 
-interface LoginFailure {
+type LoginFailure = {
   type: typeof LOGIN_FAILURE;
   payload: AuthState['loginError'];
-}
+};
 
-interface Logout {
+type Logout = {
   type: typeof LOGOUT;
-}
+};
 
 export type AuthActionTypes =
   | InitialAuthCheck

@@ -1,25 +1,35 @@
 import React, { FC } from 'react';
+import { Switch, Route } from 'react-router-dom';
 import styled from 'styled-components';
-import { useTheme } from '../hooks/useTheme';
-// import { Theme } from '../themes/Theme';
+import { Home } from '../components/Home';
+import { NoMatch } from '../components/NoMatch';
+import { routes } from '../config/route';
 import { Header } from '../ui/organisms/Header';
 import { WithAuthHeader } from '../ui/organisms/WithAuthHeader';
 
-export const Layout: FC = ({ children }) => {
-  const theme = useTheme();
-  const loggedIn = false;
+type Props = {
+  loggedIn: boolean;
+};
 
-  console.log(theme);
-
+export const Layout: FC<Props> = ({ loggedIn }) => {
   return loggedIn ? (
     <Wrapper>
       <WithAuthHeader />
-      {children}
+      <Container>
+        <Switch>
+          {routes.map((route, i) => (
+            <Route key={i} exact={route.exact} path={route.path} component={route.component} />
+          ))}
+        </Switch>
+      </Container>
     </Wrapper>
   ) : (
     <HomeWrapper>
       <Header />
-      {children}
+      <Switch>
+        <Route exact={true} path="/" component={Home} />
+        <Route path="*" component={NoMatch} />
+      </Switch>
     </HomeWrapper>
   );
 };
@@ -27,6 +37,12 @@ export const Layout: FC = ({ children }) => {
 const Wrapper = styled.div`
   width: 100%;
   position: relative;
+`;
+
+const Container = styled.div`
+  width: 100%;
+  margin: 50px auto 0;
+  padding: 0 20px;
 `;
 
 const HomeWrapper = styled.div`

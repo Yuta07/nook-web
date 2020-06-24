@@ -8,9 +8,9 @@ export type ToastProps = {
 export type CreateToastProps = Pick<ToastProps, 'id' | 'timestamp'>;
 export type ToastStatusProps = Pick<ToastProps, 'status' | 'text'>;
 
-export interface ToastState {
+export type ToastState = {
   toasts: ToastProps[];
-}
+};
 
 export const CREATE_TOAST = 'CREATE_TOAST';
 export const SHOW_TOAST = 'SHOW_TOAST';
@@ -22,19 +22,19 @@ export function createOriginalToast() {
   return id++;
 }
 
-export interface CreateToast {
+export type CreateToast = {
   type: typeof CREATE_TOAST;
   payload: CreateToastProps;
-}
+};
 
-export interface ShowToast {
+export type ShowToast = {
   type: typeof SHOW_TOAST;
   toast: ToastProps;
-}
+};
 
-export interface HideToast {
+export type HideToast = {
   type: typeof HIDE_TOAST;
   id: ToastProps['id'];
-}
+};
 
 export type ToastActionTypes = CreateToast | ShowToast | HideToast;

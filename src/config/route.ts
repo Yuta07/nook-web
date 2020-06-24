@@ -1,14 +1,18 @@
-import { Home } from '../components/Home';
+import { MyPage } from '../components/MyPage';
 import { NoMatch } from '../components/NoMatch';
 
-export const routes = [
+type Props = {
+  path?: string | string[];
+  exact?: boolean;
+  component: () => JSX.Element;
+};
+
+export const routes: Props[] = [
   {
-    path: '/',
-    exact: true,
-    component: Home,
+    path: '/home',
+    component: MyPage,
   },
   {
-    path: '*',
     component: NoMatch,
   },
 ];

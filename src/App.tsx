@@ -1,25 +1,55 @@
-import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { routes } from './config/route';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { Layout } from './hoc/Layout';
+import { useTheme } from './hooks/useTheme';
 import { GlobalStyle } from './themes/Global';
-import { theme } from './themes/Theme';
 import { ThemeProvider } from './themes/ThemeProvider';
 
-const themes = theme();
+const loggedIn = true;
+const body = document.querySelector('body');
+
+const mode: 'light' | 'dark' = JSON.parse(localStorage.getItem('theme'));
+const initialMode = mode === 'light' ? 'light' : 'dark';
 
 export const App = () => {
+  const [mode, setMode] = useState<'light' | 'dark'>(initialMode);
+  const themes = useTheme();
+  const { palette } = themes;
+
+  useEffect(() => {
+    if (loggedIn) {
+      body.style.color = palette[mode].PRIMARY;
+      body.style.backgroundColor = palette[mode].BACKGROUND;
+      localStorage.setItem('theme', JSON.stringify(mode));
+    } else {
+      body.style.color = palette.light.PRIMARY;
+      body.style.backgroundColor = palette.light.BACKGROUND;
+    }
+    // eslint-disable-next-line
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('theme', JSON.stringify(mode));
+  }, [mode]);
+
   return (
-    <ThemeProvider theme={themes}>
+    <ThemeProvider
+      theme={{
+        theme: mode,
+        palette: themes.palette,
+        media: themes.media,
+        device: themes.device,
+        setTheme: () => {
+          const type = mode === 'light' ? 'dark' : 'light';
+          body.style.color = palette[type].PRIMARY;
+          body.style.backgroundColor = palette[type].BACKGROUND;
+          setMode(type);
+        },
+      }}
+    >
       <GlobalStyle />
       <Router>
-        <Layout>
-          <Switch>
-            {routes.map((route, i) => (
-              <Route key={i} exact={route.exact} path={route.path} component={route.component} />
-            ))}
-          </Switch>
-        </Layout>
+        <Layout loggedIn={loggedIn} />
       </Router>
     </ThemeProvider>
   );

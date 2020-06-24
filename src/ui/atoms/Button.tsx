@@ -59,7 +59,7 @@ export const Base = styled.button<{
       width: ${width ? width : 'auto'};
       height: ${height ? height : 'auto'};
       font-size: 14px;
-      color: ${palette[theme][color]};
+      color: ${color ? palette.light.SECONDARY : palette[theme][color]};
       background-color: ${palette[theme][background]};
       border: none;
       border-radius: 4px;

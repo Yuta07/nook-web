@@ -1,4 +1,5 @@
 import { call, cancelled, fork, put, take, takeEvery, takeLatest } from 'redux-saga/effects';
+import { push } from 'connected-react-router';
 import { authProcessingFinish, authSuccess, signupFailure, loginFailure, logout } from '../actions/authAction';
 import { authApi } from '../api/authApi';
 import { updateAuthToken, deleteAuthToken } from '../config/axios';
@@ -9,8 +10,10 @@ function* checkAuthState() {
   let access_token: string | undefined = yield localStorage.getItem('access_token');
   if (access_token) {
     yield put(authSuccess());
+    yield put(push('/home'));
   } else {
     deleteAuthToken();
+    yield put(push('/'));
   }
   yield put(authProcessingFinish());
 }
@@ -21,9 +24,10 @@ function* signup(auth: User) {
     if (status === 200 && data) {
       updateAuthToken(data.auth_token);
       yield put(authSuccess());
+      yield put(push('/home'));
       yield fork(createToast, { status: 'success', text: ['Welcome to nook.'] });
     } else {
-      yield put(signupFailure(data.data));
+      yield put(signupFailure('登録に失敗しました。'));
       yield fork(createToast, { status: 'failure', text: data.messages });
     }
   } catch (error) {
@@ -43,9 +47,10 @@ function* login(auth: User) {
     if (status === 200) {
       updateAuthToken(data.auth_token);
       yield put(authSuccess());
+      yield put(push('/home'));
       yield fork(createToast, { status: 'success', text: ['Login Succeeded.'] });
     } else {
-      yield put(loginFailure(''));
+      yield put(loginFailure('ログインに失敗しました。'));
       yield fork(createToast, { status: 'failure', text: ['Login Failure.'] });
     }
   } catch (error) {
@@ -61,11 +66,12 @@ function* login(auth: User) {
 
 function* logoutAction() {
   try {
-    const { data, status } = yield call(authApi.logout);
+    const { status } = yield call(authApi.logout);
     if (status === 200) {
       deleteAuthToken();
       yield put(logout());
-      yield fork(createToast, { status: 'success', text: data.messages });
+      yield put(push('/'));
+      yield fork(createToast, { status: 'success', text: ['ログアウトしました。'] });
     }
   } catch (error) {
     yield fork(createToast, {

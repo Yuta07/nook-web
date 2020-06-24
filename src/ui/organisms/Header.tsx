@@ -40,6 +40,7 @@ export const Header = () => {
 const Head = styled.header`
   height: 60px;
   padding-top: 15px;
+  background-color: #ffffff;
 `;
 
 const Nav = styled.nav`
