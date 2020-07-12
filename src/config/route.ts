@@ -1,4 +1,4 @@
-import { MyPage } from '../components/MyPage';
+import { Project } from '../components/Project';
 import { NoMatch } from '../components/NoMatch';
 
 type Props = {
@@ -9,8 +9,21 @@ type Props = {
 
 export const routes: Props[] = [
   {
-    path: '/home',
-    component: MyPage,
+    path: '/:username/home',
+    component: Project,
+  },
+  {
+    path: '/:username/note',
+    exact: true,
+    component: Project,
+  },
+  {
+    path: '/:username/task',
+    component: Project,
+  },
+  {
+    path: '/:username/calendar',
+    component: Project,
   },
   {
     component: NoMatch,

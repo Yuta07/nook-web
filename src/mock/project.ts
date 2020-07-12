@@ -1,6 +1,6 @@
-import { Project } from '../types/project';
+import { ProjectState } from '../types/project';
 
-export const ProjectData: Project[] = [
+export const ProjectData: ProjectState[] = [
   {
     id: 1,
     name: 'test',
@@ -17,7 +17,7 @@ export const ProjectData: Project[] = [
     id: 3,
     name: 'null project',
     overview: '何もデータがないプロジェクト',
-    tag: 'その他',
+    tag: 'デザイン',
   },
   {
     id: 4,
@@ -27,8 +27,22 @@ export const ProjectData: Project[] = [
   },
   {
     id: 5,
-    name: '画像なしテスト',
-    overview: '画像なしでの表示テスト',
+    name: '文字数制限テスト',
+    overview:
+      '文字数制限するためのテストデータです。文字数制限するためのテストデータです。文字数制限するためのテストデータです。文字数制限するためのテストデータです。文字数制限するためのテストデータです。',
     tag: 'ライフスタイル',
+  },
+  {
+    id: 5,
+    name: '文字数制限テスト2',
+    overview:
+      '文字数制限するためのテストデータです。文字数制限するためのテストデータです。文字数制限するためのテストデータです。文字数制限するためのテストデータです。文字数制限するためのテストデータです。',
+    tag: 'ジョブ',
+  },
+  {
+    id: 6,
+    name: '概要のないプロジェクト',
+    overview: '',
+    tag: 'その他',
   },
 ];

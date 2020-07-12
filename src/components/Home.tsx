@@ -1,21 +1,20 @@
-import React, { useState } from 'react';
+import React, { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import HomeImg from '../assets/home-img.svg';
 import { Title } from '../hooks/useHelmet';
+import { SWITCH_MODAL_STATUS, UiState } from '../types/ui';
 import { Button } from '../ui/atoms/Button';
 import { Modal } from '../ui/organisms/Modal/Modal';
 import { SignupForm } from '../ui/organisms/SignupForm';
 
 export const Home = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const { modal }: UiState = useSelector((state) => state['ui']);
+  const dispatch = useDispatch();
 
-  const isOpenModal = () => {
-    setIsOpen(true);
-  };
-
-  const onCloseModal = () => {
-    setIsOpen(false);
-  };
+  const switchModal = useCallback(() => {
+    dispatch({ type: SWITCH_MODAL_STATUS, payload: 'signup' });
+  }, [dispatch]);
 
   return (
     <>
@@ -30,10 +29,10 @@ export const Home = () => {
           Leave it in nook of your head.
         </Description>
         <SignupContainer>
-          <Button width="100px" height="40px" background="SUCCESS" handleClick={isOpenModal}>
+          <Button width="100px" height="40px" background="SUCCESS" handleClick={switchModal}>
             はじめる
           </Button>
-          <Modal isOpen={isOpen} content={<SignupForm />} onCloseModal={onCloseModal} />
+          <Modal isOpen={modal.signup} content={<SignupForm />} onCloseModal={switchModal} />
         </SignupContainer>
         <Image src={HomeImg} alt="home-image" />
       </Main>

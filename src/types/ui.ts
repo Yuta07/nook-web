@@ -8,10 +8,15 @@ export type ToastProps = {
 export type CreateToastProps = Pick<ToastProps, 'id' | 'timestamp'>;
 export type ToastStatusProps = Pick<ToastProps, 'status' | 'text'>;
 
-export type ToastState = {
+export type UiState = {
+  modal: {
+    signup: boolean;
+    login: boolean;
+  };
   toasts: ToastProps[];
 };
 
+export const SWITCH_MODAL_STATUS = 'SWITCH_MODAL_STATUS';
 export const CREATE_TOAST = 'CREATE_TOAST';
 export const SHOW_TOAST = 'SHOW_TOAST';
 export const HIDE_TOAST = 'HIDE_TOAST';
@@ -22,6 +27,10 @@ export function createOriginalToast() {
   return id++;
 }
 
+export type SwitchModalStatus = {
+  type: typeof SWITCH_MODAL_STATUS;
+  payload: 'signup' | 'login';
+};
 export type CreateToast = {
   type: typeof CREATE_TOAST;
   payload: CreateToastProps;
@@ -37,4 +46,4 @@ export type HideToast = {
   id: ToastProps['id'];
 };
 
-export type ToastActionTypes = CreateToast | ShowToast | HideToast;
+export type UiActionTypes = SwitchModalStatus | CreateToast | ShowToast | HideToast;

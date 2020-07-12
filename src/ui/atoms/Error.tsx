@@ -4,16 +4,43 @@ import { useTheme } from '../../hooks/useTheme';
 import { Theme } from '../../themes/Theme';
 
 type Props = {
-  message: string;
+  messages: string[];
 };
 
-export const Error = ({ message }: Props) => {
+export const Error = ({ messages }: Props) => {
   const theme = useTheme();
 
-  return <Txt themes={theme}>{message}</Txt>;
+  console.log(messages);
+
+  return (
+    <UnorderdList>
+      {messages.map((message) => {
+        return (
+          <List key={message}>
+            <Txt themes={theme}>{message}</Txt>
+          </List>
+        );
+      })}
+    </UnorderdList>
+  );
 };
 
-const Txt = styled.p<{ themes: Theme }>`
+const UnorderdList = styled.ul`
+  list-style: none;
+  padding: 0;
+  margin: 0;
+`;
+
+const List = styled.li`
+  padding-left: 8px;
+
+  &:before {
+    content: '• ';
+    color: #c23616;
+  }
+`;
+
+const Txt = styled.span<{ themes: Theme }>`
   ${({ themes }) => {
     const { palette, theme } = themes;
 

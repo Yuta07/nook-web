@@ -21,10 +21,16 @@ export const TagImage = ({ tag }: Props) => {
       image = <Emoji label="athletic_shoe" symbol="👟" />;
       break;
     case 'ライフスタイル':
-      image = <Emoji label="house" symbol="🏠" />;
+      image = <Emoji label="shamrock" symbol="🍀" />;
       break;
     case 'スキルアップ':
       image = <Emoji label="books" symbol="📚" />;
+      break;
+    case 'デザイン':
+      image = <Emoji label="art" symbol="🎨" />;
+      break;
+    case 'ジョブ':
+      image = <Emoji label="wrench" symbol="🔧" />;
       break;
     case 'その他':
       image = <Emoji label="penguin" symbol="🐧" />;
@@ -43,6 +49,8 @@ const Container = styled.div<{ themes: Theme }>`
     return css`
       background-color: ${theme === 'light' ? '#f1f1f1' : '#2d3240'};
       border-radius: 4px;
+      height: 100%;
+      margin-right: 30px;
     `;
   }}
 `;

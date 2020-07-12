@@ -100,7 +100,7 @@ export const InputForm = styled.input<{
       box-shadow: none;
 
       &:focus {
-        padding: 5px 9px;
+        padding: ${border ? '6px 10px' : '5px 9px'};
         outline: none;
         border: 1px solid ${palette[theme][color]};
       }

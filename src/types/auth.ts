@@ -1,11 +1,17 @@
 export type User = {
-  name: string;
+  username: string;
   password: string;
 };
 
+type FormState = {
+  errors?: string[];
+  loading: boolean;
+};
+
 export type AuthState = {
-  signupError?: string;
-  loginError?: string;
+  username: User['username'];
+  signup?: FormState;
+  login?: FormState;
   loading: boolean;
   loggedIn: boolean;
 };
@@ -17,8 +23,10 @@ export const AUTH_PROCESSING_FINISH = 'AUTH_PROCESSING_FINISH';
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';
 export const SIGNUP_START = 'SIGNUP_START';
 export const SIGNUP_FAILURE = 'SIGNUP_FAILURE';
+export const SIGNUP_FINISH = 'SIGNUP_FINISH';
 export const LOGIN_START = 'LOGIN_START';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
+export const LOGIN_FINISH = 'LOGIN_FINISH';
 export const LOGOUT = 'LOGOUT';
 
 type InitialAuthCheck = {
@@ -31,6 +39,7 @@ type AuthProcessingFinish = {
 
 type AuthSuccess = {
   type: typeof AUTH_SUCCESS;
+  payload: AuthState['username'];
 };
 
 type SignupStart = {
@@ -40,7 +49,11 @@ type SignupStart = {
 
 type SignupFailure = {
   type: typeof SIGNUP_FAILURE;
-  payload: AuthState['signupError'];
+  payload: Pick<AuthState['signup'], 'errors'>;
+};
+
+type SignupFinish = {
+  type: typeof SIGNUP_FINISH;
 };
 
 type LoginStart = {
@@ -50,7 +63,11 @@ type LoginStart = {
 
 type LoginFailure = {
   type: typeof LOGIN_FAILURE;
-  payload: AuthState['loginError'];
+  payload: Pick<AuthState['login'], 'errors'>;
+};
+
+type LoginFinish = {
+  type: typeof LOGIN_FINISH;
 };
 
 type Logout = {
@@ -63,6 +80,8 @@ export type AuthActionTypes =
   | AuthSuccess
   | SignupStart
   | SignupFailure
+  | SignupFinish
   | LoginStart
   | LoginFailure
+  | LoginFinish
   | Logout;

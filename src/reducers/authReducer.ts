@@ -4,16 +4,25 @@ import {
   AUTH_SUCCESS,
   SIGNUP_START,
   SIGNUP_FAILURE,
+  SIGNUP_FINISH,
   LOGIN_START,
   LOGIN_FAILURE,
+  LOGIN_FINISH,
   LOGOUT,
   AuthState,
   AuthActionTypes,
 } from '../types/auth';
 
 const initialState: AuthState = {
-  signupError: null,
-  loginError: null,
+  username: null,
+  signup: {
+    errors: null,
+    loading: false,
+  },
+  login: {
+    errors: null,
+    loading: false,
+  },
   loading: false,
   loggedIn: false,
 };
@@ -33,29 +42,38 @@ export const authReducer = (state = initialState, action: AuthActionTypes): Auth
     case AUTH_SUCCESS:
       return {
         ...state,
+        username: action.payload,
         loggedIn: true,
       };
     case SIGNUP_START:
       return {
         ...state,
-        loading: true,
-        signupError: null,
+        signup: { ...state.signup, loading: true },
       };
     case SIGNUP_FAILURE:
       return {
         ...state,
-        signupError: action.payload,
+        signup: { ...state.signup, errors: action.payload.errors },
+      };
+    case SIGNUP_FINISH:
+      return {
+        ...state,
+        signup: { ...state.signup, loading: false },
       };
     case LOGIN_START:
       return {
         ...state,
-        loading: true,
-        loginError: null,
+        login: { ...state.login, loading: true },
       };
     case LOGIN_FAILURE:
       return {
         ...state,
-        loginError: action.payload,
+        login: { ...state.login, errors: action.payload.errors },
+      };
+    case LOGIN_FINISH:
+      return {
+        ...state,
+        login: { ...state.login, loading: false },
       };
     case LOGOUT:
       return {

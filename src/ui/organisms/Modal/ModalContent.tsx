@@ -1,11 +1,11 @@
-import * as React from 'react';
+import React, { ReactNode } from 'react';
 import styled, { css, keyframes } from 'styled-components';
 import CloseImage from '../../../assets/x.svg';
 import { Theme } from '../../../themes/Theme';
 import { useTheme } from '../../../hooks/useTheme';
 
 type Props = {
-  content: React.ReactNode;
+  content: ReactNode;
   onCloseModal: () => void;
 };
 

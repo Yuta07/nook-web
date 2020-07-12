@@ -13,6 +13,6 @@ export const Emoji = ({ label, symbol }: Props) => (
 );
 
 const Span = styled.span`
-  font-size: 40px;
+  font-size: 32px;
   padding: 8px;
 `;

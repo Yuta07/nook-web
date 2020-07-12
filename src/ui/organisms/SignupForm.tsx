@@ -6,19 +6,19 @@ import { Error } from '../atoms/Error';
 import { Input } from '../atoms/Input';
 import { Label } from '../atoms/Label';
 import { Spinner } from '../atoms/Spinner';
-import { SIGNUP_START, User } from '../../types/auth';
+import { AuthState, SIGNUP_START, User } from '../../types/auth';
 
 export const SignupForm = () => {
-  const [name, setName] = useState<string>('');
+  const [username, setName] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
   const dispatch = useDispatch();
-  const { loading, signupError } = useSelector((state) => state['auth']);
+  const { signup }: AuthState = useSelector((state) => state['auth']);
 
   const handleInputChange = (event: React.FormEvent<HTMLInputElement>): void => {
     const { name, value } = event.currentTarget;
     switch (name) {
-      case 'name':
+      case 'username':
         setName(value);
         break;
       case 'password':
@@ -33,23 +33,22 @@ export const SignupForm = () => {
       event.preventDefault();
 
       const user: User = {
-        name: name,
+        username: username,
         password: password,
       };
-      console.log(user);
 
       dispatch({ type: SIGNUP_START, payload: user });
     },
-    [dispatch, name, password]
+    [dispatch, username, password]
   );
 
   return (
     <Container>
-      {loading && <Spinner position={{ position: 'absolute', top: '45%', left: '162px' }} />}
+      {signup.loading && <Spinner position={{ position: 'absolute', top: '45%', left: '162px' }} />}
       <Title>新規登録</Title>
-      {!!signupError ? (
+      {!!signup.errors ? (
         <ErrorText>
-          <Error message={signupError} />
+          <Error messages={signup.errors} />
         </ErrorText>
       ) : null}
       <Signup onSubmit={handleSubmit}>
@@ -57,9 +56,9 @@ export const SignupForm = () => {
           <Label label="ユーザー名" />
           <Input
             type="text"
-            name="name"
-            value={name}
-            placeholder="nook@gmail.com"
+            name="username"
+            value={username}
+            placeholder="user"
             border={false}
             width="100%"
             handleInputChange={handleInputChange}
@@ -68,17 +67,17 @@ export const SignupForm = () => {
         <Row>
           <Label label="パスワード" />
           <Input
-            type="text"
+            type="password"
             name="password"
             value={password}
-            placeholder="nookN123"
+            placeholder="Password1(大小英字数字8文字以上)"
             border={false}
             width="100%"
             handleInputChange={handleInputChange}
           />
         </Row>
         <ButtonRow>
-          <Button type="submit" disabled={loading} width="100%">
+          <Button type="submit" disabled={signup.loading} width="100%">
             新規登録
           </Button>
         </ButtonRow>

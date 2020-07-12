@@ -1,11 +1,23 @@
-import { SHOW_TOAST, HIDE_TOAST, ToastProps, ToastState, ToastActionTypes } from '../types/ui';
+import { SWITCH_MODAL_STATUS, SHOW_TOAST, HIDE_TOAST, ToastProps, UiState, UiActionTypes } from '../types/ui';
 
-const initialState: ToastState = {
+const initialState: UiState = {
+  modal: {
+    signup: false,
+    login: false,
+  },
   toasts: [],
 };
 
-export const toastReducer = (state = initialState, action: ToastActionTypes): ToastState => {
+export const uiReducer = (state = initialState, action: UiActionTypes): UiState => {
   switch (action.type) {
+    case SWITCH_MODAL_STATUS:
+      return {
+        ...state,
+        modal: {
+          ...state.modal,
+          [action.payload]: !state.modal[action.payload],
+        },
+      };
     case SHOW_TOAST:
       return {
         ...state,

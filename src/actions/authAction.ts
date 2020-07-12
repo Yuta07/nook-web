@@ -4,8 +4,10 @@ import {
   AUTH_SUCCESS,
   SIGNUP_START,
   SIGNUP_FAILURE,
+  SIGNUP_FINISH,
   LOGIN_START,
   LOGIN_FAILURE,
+  LOGIN_FINISH,
   LOGOUT,
   User,
   AuthState,
@@ -24,9 +26,10 @@ export function authProcessingFinish() {
   };
 }
 
-export function authSuccess() {
+export function authSuccess(username: AuthState['username']): AuthActionTypes {
   return {
     type: AUTH_SUCCESS,
+    payload: username,
   };
 }
 
@@ -37,10 +40,16 @@ export function signupStart(user: User): AuthActionTypes {
   };
 }
 
-export function signupFailure(error: AuthState['signupError']): AuthActionTypes {
+export function signupFailure(errors: Pick<AuthState['signup'], 'errors'>): AuthActionTypes {
   return {
     type: SIGNUP_FAILURE,
-    payload: error,
+    payload: errors,
+  };
+}
+
+export function signupFinish(): AuthActionTypes {
+  return {
+    type: SIGNUP_FINISH,
   };
 }
 
@@ -51,10 +60,16 @@ export function loginStart(user: User): AuthActionTypes {
   };
 }
 
-export function loginFailure(error: AuthState['loginError']): AuthActionTypes {
+export function loginFailure(errors: Pick<AuthState['login'], 'errors'>): AuthActionTypes {
   return {
     type: LOGIN_FAILURE,
-    payload: error,
+    payload: errors,
+  };
+}
+
+export function loginFinish(): AuthActionTypes {
+  return {
+    type: LOGIN_FINISH,
   };
 }
 

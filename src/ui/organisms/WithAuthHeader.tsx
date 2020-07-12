@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import NookLogo from '../../assets/nook-main-logo.svg';
@@ -8,10 +8,12 @@ import { Logo } from '../atoms/Logo';
 import { SwitchTheme } from '../atoms/SwitchTheme';
 import { useTheme } from '../../hooks/useTheme';
 import { Theme } from '../../themes/Theme';
-import { LOGOUT } from '../../types/auth';
+import { AuthState, LOGOUT } from '../../types/auth';
 
 export const WithAuthHeader = () => {
   const location = useLocation();
+
+  const { username }: AuthState = useSelector((state) => state['auth']);
   const dispatch = useDispatch();
 
   const themes = useTheme();
@@ -30,23 +32,23 @@ export const WithAuthHeader = () => {
       <Nav>
         <Left>
           <LogoContainer>
-            <Link to="/home">
+            <Link to={`/${username}/home`}>
               <Logo img={NookLogo} width="100px" />
             </Link>
           </LogoContainer>
           <UnorderedList>
-            <List path={location.pathname === '/note'} themes={themes}>
-              <Link to="/note">
+            <List path={location.pathname === `/${username}/note`} themes={themes}>
+              <Link to={`/${username}/note`}>
                 <Span>Note</Span>
               </Link>
             </List>
-            <List path={location.pathname === '/task'} themes={themes}>
-              <Link to="/task">
+            <List path={location.pathname === `/${username}/task`} themes={themes}>
+              <Link to={`/${username}/task`}>
                 <Span>Task</Span>
               </Link>
             </List>
-            <List path={location.pathname === '/calendar'} themes={themes}>
-              <Link to="/calendar">
+            <List path={location.pathname === `/${username}/calendar`} themes={themes}>
+              <Link to={`/${username}/calendar`}>
                 <Span>Calendar</Span>
               </Link>
             </List>

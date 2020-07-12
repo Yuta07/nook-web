@@ -6,19 +6,19 @@ import { Error } from '../atoms/Error';
 import { Input } from '../atoms/Input';
 import { Label } from '../atoms/Label';
 import { Spinner } from '../atoms/Spinner';
-import { LOGIN_START, User } from '../../types/auth';
+import { AuthState, LOGIN_START, User } from '../../types/auth';
 
 export const LoginForm = () => {
-  const [name, setName] = useState<string>('');
+  const [username, setName] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
+  const { login }: AuthState = useSelector((state) => state['auth']);
   const dispatch = useDispatch();
-  const { loading, loginError } = useSelector((state) => state['auth']);
 
   const handleInputChange = (event: React.FormEvent<HTMLInputElement>): void => {
     const { name, value } = event.currentTarget;
     switch (name) {
-      case 'name':
+      case 'username':
         setName(value);
         break;
       case 'password':
@@ -33,23 +33,23 @@ export const LoginForm = () => {
       event.preventDefault();
 
       const user: User = {
-        name: name,
+        username: username,
         password: password,
       };
-      console.log(user);
 
       dispatch({ type: LOGIN_START, payload: user });
     },
-    [dispatch, name, password]
+
+    [dispatch, username, password]
   );
 
   return (
     <Container>
-      {loading && <Spinner position={{ position: 'absolute', top: '45%', left: '162px' }} />}
+      {login.loading && <Spinner position={{ position: 'absolute', top: '45%', left: '162px' }} />}
       <Title>ログイン</Title>
-      {!!loginError ? (
+      {!!login.errors ? (
         <ErrorText>
-          <Error message={loginError} />
+          <Error messages={login.errors} />
         </ErrorText>
       ) : null}
       <Login onSubmit={handleSubmit}>
@@ -57,9 +57,9 @@ export const LoginForm = () => {
           <Label label="ユーザー名" />
           <Input
             type="text"
-            name="name"
-            value={name}
-            placeholder="nook@gmail.com"
+            name="username"
+            value={username}
+            placeholder="user"
             border={false}
             width="100%"
             handleInputChange={handleInputChange}
@@ -68,17 +68,17 @@ export const LoginForm = () => {
         <Row>
           <Label label="パスワード" />
           <Input
-            type="text"
+            type="password"
             name="password"
             value={password}
-            placeholder="nookN123"
+            placeholder="Password1(大小英字数字8文字以上)"
             border={false}
             width="100%"
             handleInputChange={handleInputChange}
           />
         </Row>
         <ButtonRow>
-          <Button type="submit" disabled={loading} width="100%">
+          <Button type="submit" disabled={login.loading} width="100%">
             ログイン
           </Button>
         </ButtonRow>
